@@ -17,7 +17,7 @@ public class MainActivity extends Activity {
         btn_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DownFileActivity.class));
+                startActivity(new Intent(MainActivity.this, DownFileWithPause.class));
             }
         });
     }

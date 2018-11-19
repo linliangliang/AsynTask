@@ -23,6 +23,7 @@
         <activity android:name=".ImageActivity" />
         <activity android:name=".ProgressActivity" />
         <activity android:name=".DownFileActivity" />
+        <activity android:name=".DownFileWithPause" />
     </application>
 
 </manifest>
