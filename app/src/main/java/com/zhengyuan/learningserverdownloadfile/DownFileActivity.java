@@ -30,9 +30,10 @@ public class DownFileActivity extends Activity implements View.OnClickListener {
     /* SD卡根目录 */
     private File rootDie;
     /* 输出文件名称 */
-    private String outFileName = "ldm.jar";
+    private String outFileName = "ldm1.jar";
     /* 进度条对话框 */
     private ProgressDialog pdialog;
+    private MyLoadAsyncTask myLoadAsyncTask = new MyLoadAsyncTask();
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -49,10 +50,19 @@ public class DownFileActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if (v.getId() == R.id.file_download_btn) {
 /* 异步下载 */
-            new MyLoadAsyncTask().execute("http://59.175.173.136:9080/plugins/EMPrisonLocation-100.jar");
+            myLoadAsyncTask.execute("http://59.175.173.136:9080/plugins/EMPrisonLocation-100.jar");
         }
     }
 
+    //AsyncTask是基于线程池进行实现的,当一个线程没有结束时,后面的线程是不能执行的.
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (myLoadAsyncTask != null && myLoadAsyncTask.getStatus() == AsyncTask.Status.RUNNING) {
+            //cancel方法只是将对应的AsyncTask标记为cancelt状态,并不是真正的取消线程的执行.
+            myLoadAsyncTask.cancel(true);
+        }
+    }
 
     @Override
     protected Dialog onCreateDialog(int id) {
